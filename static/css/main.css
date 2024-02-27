@@ -1,0 +1,430 @@
+/* Commun a toutes les pages */
+
+@import url("https://fonts.googleapis.com/css?family=Inconsolata:700");
+
+@font-face {
+  font-family: "Nunito Light";
+  src: url("../fonts/Nunito-Light.ttf");
+}
+
+@font-face {
+  font-family: "Nunito Bold";
+  src: url("../fonts/Nunito-Bold.ttf");
+}
+
+:root {
+  --black: #000000;
+  --dark-gray: #333333;
+  --gray: #666666;
+  --light-gray: #999999;
+  --extra-light-gray: #cccccc;
+  --white: #ffffff;
+}
+
+body {
+  background-color: var(--extra-light-gray);
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+nav {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 5px;
+  padding-left: 40px;
+  box-shadow: 0 0 10px 0 var(--dark-gray);
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  background-color: var(--extra-light-gray);
+}
+
+nav div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  padding-right: 80px;
+}
+
+#github {
+  left: 0;
+}
+
+nav a {
+  padding: 10px;
+  padding-bottom: 0;
+  text-decoration: none;
+  color: var(--dark-gray);
+  font-family: "Nunito Light";
+  font-weight: bold;
+  transition: all 0.5s ease-in-out;
+  position: relative;
+  cursor: pointer;
+}
+
+nav a:hover {
+  font-weight: bolder;
+  color: var(--black);
+}
+
+.logo {
+  cursor: default;
+}
+
+/* Page d'accueil : CSS */
+
+.body-content {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-header {
+  height: auto;
+  font-size: 45px;
+  font-family: "Nunito Bold";
+  padding: 60px 20px 20px 100px;
+}
+
+.ch1 {
+  padding-top: 100px;
+}
+
+.content-body {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cb1 {
+  font-size: 25px;
+  padding-top: 100px;
+}
+
+.cb1-left {
+  width: 50%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.cb1-right {
+  width: 50%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.cb1-left p {
+  font-family: "Nunito Light";
+  font-size: 40px;
+  text-align: justify;
+}
+
+.cb1-right img {
+  width: 100%;
+  height: auto;
+  border-radius: 30px;
+}
+
+.cb2 {
+  font-size: 25px;
+  padding-top: 100px;
+}
+
+.cb2-left {
+  width: 50%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.cb2-right {
+  width: 50%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.cb2-right p {
+  font-family: "Nunito Light";
+  font-size: 40px;
+  text-align: justify;
+}
+
+/* Custom button : CodePen */
+
+button {
+  margin: 20px;
+}
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+  scale: 2.5;
+}
+
+.btn-12 {
+  position: relative;
+  right: 20px;
+  bottom: 20px;
+  border: none;
+  box-shadow: none;
+  width: 130px;
+  height: 40px;
+  line-height: 42px;
+  -webkit-perspective: 230px;
+  perspective: 230px;
+}
+
+.btn-12 span {
+  background: rgb(0, 172, 238);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 172, 238, 1) 0%,
+    rgba(2, 126, 251, 1) 100%
+  );
+  display: block;
+  position: absolute;
+  width: 130px;
+  height: 40px;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin: 0;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.btn-12 span:nth-child(1) {
+  box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
+    7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
+  -webkit-transform: rotateX(90deg);
+  -moz-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+  -webkit-transform-origin: 50% 50% -20px;
+  -moz-transform-origin: 50% 50% -20px;
+  transform-origin: 50% 50% -20px;
+}
+
+.btn-12 span:nth-child(2) {
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+  -webkit-transform-origin: 50% 50% -20px;
+  -moz-transform-origin: 50% 50% -20px;
+  transform-origin: 50% 50% -20px;
+}
+
+.btn-12:hover span:nth-child(1) {
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+
+.btn-12:hover span:nth-child(2) {
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  color: transparent;
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+}
+
+/* Page pour tous les groupes : CSS*/
+
+.body-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: initial;
+  padding: 100px 0 20px 0;
+}
+
+.card-container {
+  height: 300px;
+  width: 20%;
+  padding: 15px;
+}
+
+.card-container a {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.card {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white);
+  border-radius: 20px;
+  box-shadow: 5px 5px 10px var(--dark-gray);
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 10px 10px 20px var(--black);
+  scale: 1.1;
+}
+
+.cardimg {
+  width: 80%;
+  height: auto;
+}
+
+.cardimg img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.cardname {
+  font-family: "Nunito Light";
+  font-size: 25px;
+  text-decoration: none;
+  color: var(--black);
+  padding: 10px;
+}
+
+.hidden-info {
+  display: none;
+}
+
+/* Page pour l'affichage d'un groupe : CSS */
+
+.body-groupe {
+  width: 90%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 100px 5% 50px 5%;
+  padding: 10px;
+  box-shadow: 5px 5px 10px var(--dark-gray);
+  background-color: var(--white);
+  border-radius: 20px;
+}
+
+.body-groupe img {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.div-bg {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.div-bg-header {
+  font-family: "Nunito Bold";
+  font-size: 30px;
+  padding: 20px;
+}
+
+.bg-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg-name {
+  font-family: "Nunito Bold";
+  font-size: 40px;
+  padding: 20px;
+}
+
+.bg-members {
+  font-family: "Nunito Light";
+  font-size: 25px;
+  padding: 20px;
+}
+
+.bg-creation-date {
+  font-family: "Nunito Light";
+  font-size: 25px;
+  padding: 20px;
+}
+
+.bg-first-album {
+  font-family: "Nunito Light";
+  font-size: 25px;
+  padding: 20px;
+}
+
+.bg-concerts {
+  font-family: "Nunito Light";
+  font-size: 25px;
+}
+
+.boldspan {
+  font-family: "Nunito Bold";
+  font-size: 25px;
+}
+
+.link {
+  display: flex;
+  flex-direction: row;
+}
+
+.map {
+  height: 400px;
+  width: 90%;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px 10px;
+  margin-top: 40px;
+  overflow: hidden;
+}

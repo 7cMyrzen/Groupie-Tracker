@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/main.css" />
+    <link rel="stylesheet" href="../static/css/searchcp.css" />
+    <script src="../static/js/searchcp.js"></script>
+    <title>Groupie-Tracker</title>
+  </head>
+  <body>
+    <nav>
+      <a class="logo"><img src="../static/img/x32icon.png" alt="logo" /></a>
+      <a>Groupie-Tracker</a>
+      <div class="right-nav">
+        <a href="/">Accueil</a>
+        <a href="/groupes">Groupes</a>
+        <a href="https://github.com/7cMyrzen/groupie-tracker"
+          ><img src="../static/img/x32github.png"
+        /></a>
+      </div>
+    </nav>
+    <body class="body-card">
+      <div class="topsearch">
+        <input
+          type="text"
+          id="search"
+          onkeyup="checkKeyPress(event)"
+          placeholder="Rechercher un groupe"
+        />
+      </div>
+      {{range .}}
+      <div class="card-container" id="{{.ID}}">
+        <a href="/groupe/{{.ID}}">
+          <div class="card">
+            <div class="cardimg">
+              <img src="{{.Image}}" />
+            </div>
+            <div class="cardname">{{.Name}}</div>
+          </div>
+        </a>
+        <div class="hidden-info">
+          <div class="cardinfo">
+            <div class="cardinfo-title">NBMebres</div>
+            <div class="cardinfo-content">{{.MembersNumber}}</div>
+          </div>
+          <div class="cardinfo">
+            <div class="cardinfo-title">FirstAlbums</div>
+            <div class="cardinfo-content">{{.FirstAlbum}}</div>
+          </div>
+          <div class="cardinfo">
+            <div class="cardinfo-title">CreationDate</div>
+            <div class="cardinfo-content">{{.CreationDate}}</div>
+          </div>
+        </div>
+      </div>
+      {{end}}
+    </body>
+  </body>
+</html>

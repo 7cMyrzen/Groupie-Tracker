@@ -1,0 +1,52 @@
+.topsearch {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="text"] {
+  width: 50%;
+  height: 50px;
+  border-radius: 30px;
+  border: 1px solid #000;
+  padding: 10px;
+  font-size: 20px;
+  font-family: "Nunito Light";
+  margin-right: 10px;
+}
+
+input[type="submit"] {
+  width: 100px;
+  height: 50px;
+  border-radius: 30px;
+  border: 1px solid #000;
+  padding: 10px;
+  font-size: 20px;
+  font-family: "Nunito Light";
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+.filter {
+  width: 160px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+  background-color: var(--white);
+  box-shadow: 2px 2px 5px #000;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.filter div {
+  width: 100%;
+  justify-content: left;
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/main.css" />
+    <title>Groupie-Tracker</title>
+    <script src="../static/js/OpenLayers/ol.js"></script>
+    <link rel="stylesheet" href="../static/css/OpenLayers/ol.css" />
+  </head>
+  <body>
+    <nav>
+      <a class="logo"><img src="../static/img/x32icon.png" alt="logo" /></a>
+      <a>Groupie-Tracker</a>
+      <div class="right-nav">
+        <a href="/">Accueil</a>
+        <a href="/groupes">Groupes</a>
+        <a href="https://github.com/7cMyrzen/groupie-tracker"
+          ><img src="../static/img/x32github.png"
+        /></a>
+      </div>
+    </nav>
+
+    <div class="body-groupe">
+      <div class="div-bg bg-img">
+        <img src="{{.Image}}" />
+      </div>
+      <div class="div-bg bg-name">
+        {{.Name}}
+        <div class="link">
+          <a href="https://open.spotify.com/search/{{.Name}}/artists"
+            ><img src="../static/img/x32spotify.png"
+          /></a>
+          <a href="https://music.youtube.com/search?q={{.Name}}"
+            ><img src="../static/img/x32youtube.png"
+          /></a>
+          <a href="https://www.deezer.com/search/{{.Name}}"
+            ><img src="../static/img/x32deezer.png"
+          /></a>
+        </div>
+      </div>
+      <div class="div-bg bg-members">
+        <div class="div-bg-header">Le(s) membre(s) :</div>
+        {{.Members}}
+      </div>
+
+      <div class="div-bg bg-creation-date">
+        <div class="div-bg-header">La date de création :</div>
+        {{.CreationDate}}
+      </div>
+      <div class="div-bg bg-first-album">
+        <div class="div-bg-header">Le premier album :</div>
+        {{.FirstAlbum}}
+      </div>
+      <div class="div-bg bg-concerts">
+        <div class="div-bg-header">Le(s) concert(s) :</div>
+        {{.Concerts}}
+      </div>
+      <div class="map" id="map"></div>
+    </div>
+
+    <script>
+      console.log("{{.Locations}}");
+      const chaineListe = "{{.Locations}}";
+      const elements = chaineListe.split(" ");
+
+      // Inverser l'ordre des éléments
+      const listeModifiee = elements.reverse();
+
+      // Afficher le résultat
+      console.log(listeModifiee);
+
+      var places = listeModifiee;
+
+      // Style pour le point
+      var pointStyle = new ol.style.Style({
+        image: new ol.style.Circle({
+          radius: 6,
+          fill: new ol.style.Fill({
+            color: "red", // Vous pouvez remplacer 'red' par la couleur de votre choix (par exemple, '#00FF00' pour le vert)
+          }),
+          stroke: new ol.style.Stroke({
+            color: "white",
+            width: 2,
+          }),
+        }),
+      });
+
+      // Initialiser une carte OpenLayers
+      var map = new ol.Map({
+        target: "map",
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM(),
+          }),
+        ],
+        view: new ol.View({
+          center: ol.proj.fromLonLat([0, 0]),
+          zoom: 2,
+        }),
+      });
+
+      // Fonction pour géocoder un lieu avec OpenCage
+      function geocodePlace(place) {
+        var apiKey = "e70bbae2287244cc8acae6217cbffc4a"; // Remplacez par votre clé OpenCage
+        var url =
+          "https://api.opencagedata.com/geocode/v1/json?q=" +
+          place +
+          "&key=" +
+          apiKey;
+
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.results.length > 0) {
+              var coordinates = data.results[0].geometry;
+              var marker = new ol.Feature({
+                geometry: new ol.geom.Point(
+                  ol.proj.fromLonLat([coordinates.lng, coordinates.lat])
+                ),
+                name: place,
+              });
+
+              // Appliquer le style au marqueur
+              marker.setStyle(pointStyle);
+
+              var vectorSource = new ol.source.Vector({
+                features: [marker],
+              });
+
+              var vectorLayer = new ol.layer.Vector({
+                source: vectorSource,
+              });
+
+              map.addLayer(vectorLayer);
+            } else {
+              console.error("Coordonnées introuvables pour " + place);
+            }
+          })
+          .catch((error) =>
+            console.error("Erreur lors du géocodage : ", error)
+          );
+      }
+
+      // Géocoder chaque endroit dans la liste
+      places.forEach(geocodePlace);
+    </script>
+  </body>
+</html>
