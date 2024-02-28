@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/artist.js">
+    <script src="/static/ol.js">
+    </script>
+      <link rel="stylesheet" href="/static/styles.css">
+    <title>Groupie Trackers - Artist Details</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #image-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 100%; /* Ajustez la largeur */
+            height: 100%; /* Ajustez la hauteur */
+            object-fit: cover; /* Garantit que l'image couvre tout l'espace */
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <img id="image-background" src="https://getwallpapers.com/wallpaper/full/7/5/1/234636.jpg" alt="Background Image" width="1920" height="1080">
+
+    <h1 class="title2">Groupie Trackers - Artist Details</h1>
+    <div class="map" id="map"></div>
+    
+    <div class="container2">
+        <div class="card2">
+            <div class="card-body2">
+                <div class="image-title-container">
+                    <img src="{{.Image}}" class="card-img-top2" alt="{{.Name}}">
+                    <h5 class="card-title">{{.Name}}</h5>
+                </div>
+                <p class="card-text">MEMBRES: {{range .Members}}{{.}}, {{end}}</p>
+                <p class="card-text">DATE DE CRÉATION: {{.CreationDate}}</p>
+                <p class="card-text">PREMIER ALBUM: {{.FirstAlbum}}</p>
+                <p class="card-text">LIEU DE CONCERT: {{.Locations}}</p>
+                <p class="card-text">DATE DE CONCERT: {{.ConcertDates}}</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chaîne de caractères contenant les noms de villes et de pays
+var villesPays ="{{.Locations}}"
+// Transformation de la chaîne en liste en divisant aux virgules
+var listeVillesPays = villesPays.split(",");
+
+// Retrait des espaces supplémentaires
+for (var i = 0; i < listeVillesPays.length; i++) {
+    listeVillesPays[i] = listeVillesPays[i].trim();
+}
+
+// Affichage du résultat
+console.log(listeVillesPays);
+var places = listeVillesPays;
+
+// Style pour le point
+var pointStyle = new ol.style.Style({
+  image: new ol.style.Circle({
+    radius: 6,
+    fill: new ol.style.Fill({
+      color: "red", // Vous pouvez remplacer 'red' par la couleur de votre choix (par exemple, '#00FF00' pour le vert)
+    }),
+    stroke: new ol.style.Stroke({
+      color: "white",
+      width: 2,
+    }),
+  }),
+});
+
+// Initialiser une carte OpenLayers
+var map = new ol.Map({
+  target: "map",
+  layers: [
+    new ol.layer.Tile({
+      source: new ol.source.OSM({
+        url: "https://{a-c}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png", // This URL provides a dark map
+        attributions: ['&copy; OpenStreetMap contributors'],
+      }),
+    }),
+  ],
+  view: new ol.View({
+    center: ol.proj.fromLonLat([0, 0]),
+    zoom: 2,
+  }),
+});
+
+// Fonction pour géocoder un lieu avec OpenCage
+function geocodePlace(place) {
+  var apiKey = "e70bbae2287244cc8acae6217cbffc4a"; // Remplacez par votre clé OpenCage
+  var url =
+    "https://api.opencagedata.com/geocode/v1/json?q=" +
+    place +
+    "&key=" +
+    apiKey;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.results.length > 0) {
+        var coordinates = data.results[0].geometry;
+        var marker = new ol.Feature({
+          geometry: new ol.geom.Point(
+            ol.proj.fromLonLat([coordinates.lng, coordinates.lat])
+          ),
+          name: place,
+        });
+
+        // Appliquer le style au marqueur
+        marker.setStyle(pointStyle);
+
+        var vectorSource = new ol.source.Vector({
+          features: [marker],
+        });
+
+        var vectorLayer = new ol.layer.Vector({
+          source: vectorSource,
+        });
+
+        map.addLayer(vectorLayer);
+      } else {
+        console.error("Coordonnées introuvables pour " + place);
+      }
+    })
+    .catch((error) =>
+      console.error("Erreur lors du géocodage : ", error)
+    );
+}
+
+// Géocoder chaque endroit dans la liste
+places.forEach(geocodePlace);
+
+    </script>
+</body>
+</html>

@@ -95,9 +95,15 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	members := getMembers(artist.Members)
-	creationDate := template.HTML("<br> - " + artist.Name + " a été créé en " + strconv.Itoa(artist.CreationDate) + ".")
-	dateFA := mypackage.TraduireDate(time.Unix(int64(artist.CreationDate), 0))
-	firstAlbum := template.HTML("<br> - " + artist.Name + " a sorti son premier album le " + dateFA + ".")
+	creationDate := template.HTML("<br> - le groupe " + artist.Name + " a été créé en " + strconv.Itoa(artist.CreationDate) + ".")
+	FA, err := time.Parse("02-01-2006", artist.FirstAlbum)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Erreur lors de la conversion de la date : %s", err), http.StatusInternalServerError)
+		return
+	}
+	// Utiliser mypackage.TraduireDate pour obtenir la date formatée
+	newFA := mypackage.TraduireDate(FA)
+	firstAlbum := template.HTML("<br> - " + artist.Name + " a sorti son premier album le " + newFA + ".")
 
 	relationAPI := artist.Relations
 	//Effectuer la requête GET pour les relations du groupe
@@ -120,6 +126,10 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Decoder le JSON des relations du groupe
 	err = json.Unmarshal(body, &concertsData)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Erreur lors de la lecture du JSON pour les relations du groupe : %s", err), http.StatusInternalServerError)
+		return
+	}
 	var concert string
 	for location, dates := range concertsData.DatesLocations {
 		for _, dateStr := range dates {
