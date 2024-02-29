@@ -41,6 +41,16 @@ function updateSelection3(selectedOption) {
   }
 }
 
+// suppression des options sélectionnées
+function clearSelection() {
+  document.getElementById("option1-1").checked = false;
+  document.getElementById("option1-2").checked = false;
+  document.getElementById("option2-1").checked = false;
+  document.getElementById("option2-2").checked = false;
+  document.getElementById("option3-1").checked = false;
+  document.getElementById("option3-2").checked = false;
+}
+
 function getSelectedOptions() {
   var o11 = document.getElementById("option1-1").checked;
   var o12 = document.getElementById("option1-2").checked;
@@ -92,6 +102,7 @@ function getSelectedOptions() {
 
 function checkKeyPress(event) {
   HideAndShow();
+  clearSelection();
 
   var keyCode = event.keyCode || event.which;
 
